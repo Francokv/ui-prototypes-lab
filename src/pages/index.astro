@@ -1,17 +1,67 @@
 ---
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
+// Carga todos los +meta.ts automáticamente
+const modules = import.meta.glob("../prototypes/*/+meta.ts", {
+	eager: true,
+});
+
+// Construimos el array de prototipos
+const prototypes = Object.entries(modules).map(([path, mod]) => {
+	const slug = path.split("/")[2]; // ../prototypes/{slug}/+meta.ts
+	return {
+		slug,
+		...(mod as any).meta,
+	};
+});
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="UI Prototype Lab">
+	<section class="mx-auto max-w-7xl px-6 py-12">
+		<!-- Header -->
+		<div class="mb-10">
+			<h1 class="text-3xl font-bold tracking-tight">UI Prototype Lab</h1>
+			<p class="mt-2 text-gray-500">
+				Colección de dashboards y diseños listos para presentar a
+				clientes.
+			</p>
+		</div>
+
+		<!-- Grid -->
+		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{
+				prototypes.map((proto) => (
+					<a
+						href={`/preview/${proto.slug}`}
+						class="group block rounded-xl border bg-white p-6 shadow-sm transition hover:shadow-lg hover:-translate-y-1"
+					>
+						<div class="flex items-center justify-between">
+							<h2 class="text-lg font-semibold tracking-tight">
+								{proto.name ?? proto.slug}
+							</h2>
+							<span class="text-xs text-gray-400">
+								{proto.theme ?? ""}
+							</span>
+						</div>
+
+						<p class="mt-3 text-sm text-gray-500">
+							{proto.description ?? "Sin descripción"}
+						</p>
+
+						<div class="mt-6 text-sm font-medium text-blue-600 group-hover:underline">
+							Ver prototipo →
+						</div>
+					</a>
+				))
+			}
+		</div>
+
+		{
+			prototypes.length === 0 && (
+				<div class="mt-20 text-center text-gray-400">
+					No hay prototipos aún.
+				</div>
+			)
+		}
+	</section>
+</BaseLayout>

@@ -1,4 +1,6 @@
 ---
+import "../styles/index.css";
+
 interface Props {
     title?: string;
 }
@@ -14,7 +16,6 @@ const { title = "UI Prototype Lab" } = Astro.props;
         <title>{title}</title>
 
         <!-- Tailwind base styles -->
-        <link rel="stylesheet" href="/src/styles/index.css" />
     </head>
 
     <body class="h-full bg-gray-50 text-gray-900 antialiased">

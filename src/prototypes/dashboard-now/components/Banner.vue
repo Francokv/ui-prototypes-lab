@@ -2,7 +2,7 @@
   <div class="relative overflow-hidden" :class="[
     containerClass,
     // If standalone (withBackground is true), apply default styling
-    withBackground ? 'rounded-lg' : ''
+    withBackground ? 'rounded-2xl shadow-lg' : ''
   ]">
     <!-- Background provided via prop or slot? -->
     <div v-if="withBackground" class="absolute inset-0 transition-all duration-700" :class="bg" />

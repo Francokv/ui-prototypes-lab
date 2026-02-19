@@ -1,41 +1,38 @@
 <template>
-  <div class="relative overflow-hidden" @mouseenter="pause" @mouseleave="resume">
-    <!-- Background layers -->
-    <div class="absolute inset-0 transition-all duration-700" :class="slides[current].bg" />
-    <img v-if="slides[current].bgImage" :src="slides[current].bgImage"
-      class="absolute inset-0 w-full h-full object-cover mix-blend-soft-light opacity-60" alt="" />
+  <div class="relative" @mouseenter="pause" @mouseleave="resume">
+    <!-- Background layers removed for transparency -->
 
     <!-- Slide content -->
-    <div class="relative mx-auto max-w-7xl px-6 py-8 flex items-center justify-between">
+    <div class="relative mx-auto max-w-7xl px-6 py-6 flex items-center justify-between">
       <!-- Arrow left -->
       <button
-        class="shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
+        class="shrink-0 w-12 h-12 rounded-full bg-white/50 text-slate-700 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all shadow-sm z-10 backdrop-blur-sm"
         @click="prev">
-        <ChevronLeft class="w-4 h-4 text-white" />
+        <ChevronLeft class="w-6 h-6" />
       </button>
 
       <!-- Slide body -->
-      <div class="flex-1 mx-4 overflow-hidden relative h-32">
+      <div class="flex-1 mx-6 overflow-hidden relative h-44 rounded-2xl bg-transparent">
         <TransitionGroup :name="transitionName">
           <Banner v-for="(slide, i) in slides" v-show="i === current" :key="slide.id" :icon="slide.icon"
             :title="slide.title" :description="slide.description" :bg="slide.bg" :bg-image="slide.bgImage"
-            :cta="slide.cta" :cta-href="slide.ctaHref" :cta-style="slide.ctaStyle" :with-background="false"
-            class="absolute inset-0" inner-class="h-full px-0 py-0" />
+            :cta="slide.cta" :cta-href="slide.ctaHref" :cta-style="slide.ctaStyle" class="absolute inset-0"
+            inner-class="h-full px-10 py-8" />
         </TransitionGroup>
       </div>
 
       <!-- Arrow right -->
       <button
-        class="shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
+        class="shrink-0 w-12 h-12 rounded-full bg-white/50 text-slate-700 flex items-center justify-center hover:bg-white hover:text-slate-900 transition-all shadow-sm z-10 backdrop-blur-sm"
         @click="next">
-        <ChevronRight class="w-4 h-4 text-white" />
+        <ChevronRight class="w-6 h-6" />
       </button>
     </div>
 
     <!-- Dots -->
     <div class="relative flex justify-center gap-1.5 pb-3">
       <button v-for="(slide, i) in slides" :key="slide.id" class="h-1.5 rounded-full transition-all duration-300"
-        :class="i === current ? 'bg-white w-4' : 'bg-white/40 w-1.5'" @click="goTo(i)" />
+        :class="i === current ? 'bg-gray-800 w-4' : 'bg-gray-300 w-1.5'" @click="goTo(i)" />
     </div>
   </div>
 </template>

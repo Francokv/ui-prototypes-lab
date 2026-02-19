@@ -12,6 +12,9 @@ Este proyecto es un **Laboratorio de Prototipos UI** construido con:
 
 - Astro
 - Tailwind CSS
+- Vue.js (opcional)
+- lucide-vue-next (opcional)
+- vue-chartjs (opcional)
 
 Su propósito NO es construir aplicaciones finales en producción.
 Su objetivo es:
@@ -50,7 +53,10 @@ BaseLayout.astro
 prototypes/
 nombre-del-prototipo/
 +meta.ts
+mock-data.ts
 index.astro
+components/
+assets/
 
 pages/
 index.astro
@@ -77,6 +83,7 @@ Debe contener:
 
 - `index.astro` → Diseño principal
 - `+meta.ts` → Información para la galería
+- `mock-data.ts` → Datos mock para el prototipo
 
 Ejemplo de `+meta.ts`:
 
@@ -125,10 +132,12 @@ Los agentes deben:
 Al crear nuevos prototipos:
 
 ✅ Usar estructura clara de layout
-✅ Simular datos con contenido ficticio
+✅ Simular datos con contenido ficticio (mock-data.ts)
 ✅ Mantener jerarquía visual clara
 ✅ Diseñar pensando en SaaS modernos
 ✅ Usar grids y spacing consistentes
+✅ Generar prototipos interactivos
+✅ Generar prototipos aislados por carpeta
 
 Evitar:
 
@@ -289,16 +298,3 @@ Claridad.
 Estética.
 Modularidad.
 Aislamiento.
-
-```
-
----
-
-Si quieres, puedo ahora:
-
-- Optimizarlo para que sea más estricto (modo “AI enforcement”)
-- O generar una versión más minimal y compacta  
-- O una versión más avanzada para equipos múltiples
-
-Tu laboratorio ya está tomando forma 🔥
-```

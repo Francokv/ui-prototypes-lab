@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const modules = import.meta.glob("../../../prototypes/*/index.astro");
+    return Object.keys(modules).map((path) => {
+        const slug = path.split("/").at(-2)!;
+        return { params: { slug } };
+    });
+}
+
+const { slug } = Astro.params;
+
+// Carga todos los index.astro dentro de /prototypes
+const modules = import.meta.glob("../../../prototypes/*/index.astro");
+
+// Construye el path esperado
+const path = `../../../prototypes/${slug}/index.astro`;
+
+const loader = modules[path];
+
+if (!loader) {
+    throw Astro.redirect("/"); // o puedes lanzar 404
+}
+
+const module = (await loader()) as { default: any };
+const PrototypePage = module.default;
+---
+
+<BaseLayout title={`Prototype · ${slug}`}>
+    <PrototypePage />
+</BaseLayout>

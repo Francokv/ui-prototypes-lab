@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const modules = import.meta.glob("../../../prototypes/*/banners.astro");
+    return Object.keys(modules).map((path) => {
+        const slug = path.split("/").at(-2)!;
+        return { params: { slug } };
+    });
+}
+
+const { slug } = Astro.params;
+const modules = import.meta.glob("../../../prototypes/*/banners.astro");
+const path = `../../../prototypes/${slug}/banners.astro`;
+
+const loader = modules[path];
+if (!loader) {
+    throw Astro.redirect("/404");
+}
+
+const module = (await loader()) as { default: any };
+const BannersPage = module.default;
+---
+
+<BaseLayout title={`Banners · ${slug}`}>
+    <BannersPage />
+</BaseLayout>

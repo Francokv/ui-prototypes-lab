@@ -1,0 +1,43 @@
+---
+// Dashboard NOW – Logistics Operations Dashboard
+import AnnouncementBanner from "./components/AnnouncementBanner.vue";
+import ShipmentCounters from "./components/ShipmentCounters.vue";
+import PerformanceCards from "./components/PerformanceCards.vue";
+import CustomerSection from "./components/CustomerSection.vue";
+import ComunaSection from "./components/ComunaSection.vue";
+---
+
+<div class="min-h-screen bg-gray-50">
+    <!-- ══════════════ ANNOUNCEMENT BANNER ══════════════ -->
+    <AnnouncementBanner client:load />
+
+    <!-- ══════════════ MAIN CONTENT ══════════════ -->
+    <div class="mx-auto max-w-7xl px-6 py-10 space-y-12">
+        <!-- Header + Contadores de Envíos -->
+        <ShipmentCounters client:load />
+
+        <hr class="border-gray-200" />
+
+        <!-- Performance Cards -->
+        <PerformanceCards client:load />
+
+        <hr class="border-gray-200" />
+
+        <!-- Clientes Frecuentes y Recompras -->
+        <CustomerSection client:load />
+
+        <hr class="border-gray-200" />
+
+        <!-- Envíos por Comuna -->
+        <ComunaSection client:load />
+
+        <div class="mt-8 text-center border-t pt-8">
+            <a
+                href="/preview/dashboard-now/banners"
+                class="text-sm text-blue-600 hover:underline"
+            >
+                View Banner Components Showcase →
+            </a>
+        </div>
+    </div>
+</div>
